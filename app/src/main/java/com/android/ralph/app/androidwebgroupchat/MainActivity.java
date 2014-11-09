@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
+    private TextView helloTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        helloTxt = (TextView) findViewById(R.id.helloTxt);
+
+        String userName = getIntent().getStringExtra("name");
+        Toast.makeText(getApplicationContext(), "User: " + userName, Toast.LENGTH_LONG).show();
+        helloTxt.setText("Hello, " + userName + "!");
     }
 
     @Override

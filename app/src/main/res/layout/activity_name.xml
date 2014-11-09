@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/action_bar">
+    android:background="@color/action_bar"
+    android:orientation="vertical"
+    tools:context="com.android.ralph.app.androidwebgroupchat.NameActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -12,25 +15,36 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imgLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/title"
-        android:textColor="@color/white"
-        android:textSize="13dp"/>
+    <!--<TextView-->
+    <!--android:id="@+id/txtTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/imgLogo"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--android:text="@string/title"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="13dp"/>-->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/imgLogo"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/enter_game"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/name"
@@ -40,7 +54,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:inputType="textCapWords"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/btnJoin"
@@ -51,7 +65,7 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:text="@string/btn_join"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <!-- Author info -->
@@ -68,13 +82,13 @@
             android:layout_height="wrap_content"
             android:text="@string/author_name"
             android:textColor="@color/white"
-            android:textSize="12dp"/>
+            android:textSize="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/author_url"
             android:textColor="@color/white"
-            android:textSize="12dp"/>
+            android:textSize="12dp" />
     </LinearLayout>
 </RelativeLayout>

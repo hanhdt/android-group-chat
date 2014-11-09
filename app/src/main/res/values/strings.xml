@@ -5,9 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title">(Android WebSockets Chat App)</string>
-    <string name="author_name">By Hanh D TRAN</string>
-    <string name="author_url">Center of Engineer in Duy Tan University</string>
+    <string name="author_name">Dev by Hanh D TRAN</string>
+    <string name="author_url">Center of Engineer at Duy Tan University</string>
     <string name="enter_game">Enter your name</string>
     <string name="btn_join">JOIN</string>
     <string name="btn_send">Send</string>
+    <string name="title_activity_name">NameActivity</string>
+
 </resources>
