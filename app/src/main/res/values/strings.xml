@@ -4,7 +4,7 @@
     <string name="app_name">Android Mobile Group Chat</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title">(Android WebSockets Chat App)</string>
+    <string name="title">(Android Group Chat App)</string>
     <string name="author_name">Dev by Hanh D TRAN</string>
     <string name="author_url">Center of Engineer at Duy Tan University</string>
     <string name="enter_game">Enter your name</string>

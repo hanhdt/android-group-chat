@@ -16,12 +16,17 @@ import android.widget.Toast;
 
 import com.android.ralph.app.androidwebgroupchat.util.Message;
 import com.android.ralph.app.androidwebgroupchat.util.Utils;
+import com.android.ralph.app.androidwebgroupchat.util.WsConfig;
+import com.codebutler.android_websockets.WebSocketClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
@@ -34,6 +39,9 @@ public class MainActivity extends Activity {
             TAG_EXIT = "exit";
     private Button btnSend;
     private EditText inputMsg;
+
+    private WebSocketClient client;
+
     // Chat messages list adapter
     private MessageListAdapter adapter;
     private List<Message> listMessages;
@@ -64,8 +72,8 @@ public class MainActivity extends Activity {
         utils = new Utils(getApplicationContext());
 
         // Getting the person name from previous screen
-        String userName = getIntent().getStringExtra("name");
-        getActionBar().setTitle("Welcome to group chat, " + userName);
+        name = getIntent().getStringExtra("name");
+        getActionBar().setTitle("Welcome to group, " + name);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +91,69 @@ public class MainActivity extends Activity {
         adapter = new MessageListAdapter(this, listMessages);
         listViewMessages.setAdapter(adapter);
 
+        /**
+         * Creating web socket client. This will have callback methods
+         * */
+        client = new WebSocketClient(URI.create(WsConfig.URL_WEBSOCKET
+                + URLEncoder.encode(name)), new WebSocketClient.Listener() {
+
+            @Override
+            public void onConnect() {
+
+            }
+
+            @Override
+            public void onMessage(String message) {
+                Log.d(TAG, String.format("Got string message! %s", message));
+                parseMessage(message);
+            }
+
+            @Override
+            public void onMessage(byte[] data) {
+                Log.d(TAG, String.format("Got binary message! %s",
+                        bytesToHex(data)));
+
+                // Message will be in JSON format
+                parseMessage(bytesToHex(data));
+            }
+
+            @Override
+            public void onDisconnect(int code, String reason) {
+                String message = String.format(Locale.US,
+                        "Disconnected! Code: %d Reason: %s", code, reason);
+
+                showToast(message);
+
+                // clear the session id from shared preferences
+                utils.storeSessionId(null);
+            }
+
+            @Override
+            public void onError(Exception error) {
+                Log.e(TAG, "Error! : " + error);
+
+                showToast("Error! : " + error);
+            }
+        }, null);
+
+        client.connect();
     }
 
-    private void sendMessageToServer(final String sendMessageJSON) {
-        Toast.makeText(getApplicationContext(), "Sending ... [" + sendMessageJSON + "]...", Toast.LENGTH_LONG).show();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (client != null & client.isConnected()) {
+            client.disconnect();
+        }
+    }
+
+    private void sendMessageToServer(String sendMessageJSON) {
+//        Toast.makeText(getApplicationContext(), "Sending ... [" + sendMessageJSON + "]...", Toast.LENGTH_LONG).show();
+        if (client != null && client.isConnected()) {
+            client.send(sendMessageJSON);
+        }
+        Log.d(TAG, "Send to server: " + sendMessageJSON);
     }
 
     /**
