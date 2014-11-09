@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.ralph.app.androidwebgroupchat.util.Message;
@@ -29,7 +28,8 @@ public class MainActivity extends Activity {
     // Log tag
     private static final String TAG = MainActivity.class.getSimpleName();
     // JSON flags to identify the kind of JSON response
-    private static final String TAG_SELF = "self", TAG_NEW = "new",
+    private static final String TAG_SELF = "self",
+            TAG_NEW = "new",
             TAG_MESSAGE = "message",
             TAG_EXIT = "exit";
     private Button btnSend;
@@ -41,7 +41,6 @@ public class MainActivity extends Activity {
     private Utils utils;
     // Client name
     private String name = null;
-    private TextView helloTxt;
 
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
@@ -57,7 +56,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        helloTxt = (TextView) findViewById(R.id.helloTxt);
 
         btnSend = (Button) findViewById(R.id.btnSend);
         inputMsg = (EditText) findViewById(R.id.inputMsg);
@@ -67,8 +65,7 @@ public class MainActivity extends Activity {
 
         // Getting the person name from previous screen
         String userName = getIntent().getStringExtra("name");
-        helloTxt.setText("Hello, " + userName + "!");
-        Toast.makeText(getApplicationContext(), "User: " + userName, Toast.LENGTH_LONG).show();
+        getActionBar().setTitle("Welcome to group chat, " + userName);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +86,7 @@ public class MainActivity extends Activity {
     }
 
     private void sendMessageToServer(final String sendMessageJSON) {
-
+        Toast.makeText(getApplicationContext(), "Sending ... [" + sendMessageJSON + "]...", Toast.LENGTH_LONG).show();
     }
 
     /**
