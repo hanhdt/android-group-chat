@@ -18,7 +18,6 @@ public class NameActivity extends Activity {
     private Button joinBtn;
     private EditText nameTxt;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +45,6 @@ public class NameActivity extends Activity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
