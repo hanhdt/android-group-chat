@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
             TAG_NEW = "new",
             TAG_MESSAGE = "message",
             TAG_EXIT = "exit";
-    private Button btnSend;
+    private ImageButton btnSend;
     private EditText inputMsg;
 
     private WebSocketClient client;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSend = (Button) findViewById(R.id.btnSend);
+        btnSend = (ImageButton) findViewById(R.id.btnSend);
         inputMsg = (EditText) findViewById(R.id.inputMsg);
         listViewMessages = (ListView) findViewById(R.id.list_view_messages);
 
