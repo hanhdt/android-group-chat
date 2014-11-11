@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.ralph.app.androidwebgroupchat.util.Utils;
+
 /**
  * We take the user input from EditText and send it to other activity
  */
@@ -17,7 +19,7 @@ public class NameActivity extends Activity {
 
     private Button joinBtn;
     private EditText nameTxt;
-
+    private Utils utils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +27,16 @@ public class NameActivity extends Activity {
 
         joinBtn = (Button) findViewById(R.id.btnJoin);
         nameTxt = (EditText) findViewById(R.id.name);
+
         // Hiding action bar
-        getActionBar().hide();
+//        getActionBar().hide();
+
+        // Get user name from system preference
+        utils = new Utils(getApplicationContext());
+        String defaultUserName = utils.getUserName();
+        if (defaultUserName != null) {
+            nameTxt.setText(defaultUserName);
+        }
 
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +44,8 @@ public class NameActivity extends Activity {
                 if (nameTxt.getText().toString().trim().length() > 0) {
 
                     String name = nameTxt.getText().toString().trim();
+                    // Store user name to system preferences
+                    utils.storeUserName(name);
 
                     Intent intent = new Intent(NameActivity.this, MainActivity.class);
                     intent.putExtra("name", name);
@@ -62,6 +74,7 @@ public class NameActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(getApplicationContext(), "Setting screen!", Toast.LENGTH_SHORT).show();
             return true;
         }
 

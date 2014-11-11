@@ -15,13 +15,15 @@ public class Utils {
     private static final int KEY_MODE_PRIVATE = 0;
     private static final String KEY_SESSION_ID = "sessionId";
     private static final String FLAG_MESSAGE = "message";
+    private static final String KEY_USER_NAME = "userName";
+    private static final String KEY_SOCKET_URL = "socketUrl";
+
     private Context context;
     private SharedPreferences sharedPref;
 
     public Utils(Context context) {
         this.context = context;
         sharedPref = this.context.getSharedPreferences(KEY_SHARED_PREF, KEY_MODE_PRIVATE);
-
     }
 
     public void storeSessionId(String sessionId) {
@@ -34,6 +36,25 @@ public class Utils {
         return sharedPref.getString(KEY_SESSION_ID, null);
     }
 
+    public void storeUserName(String userName) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(KEY_USER_NAME, userName);
+        editor.commit();
+    }
+
+    public String getUserName() {
+        return sharedPref.getString(KEY_USER_NAME, null);
+    }
+
+    public void storeSocketUrl(String url) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(KEY_SOCKET_URL, url);
+        editor.commit();
+    }
+
+    public String getSocketUrl() {
+        return sharedPref.getString(KEY_SOCKET_URL, null);
+    }
     public String getSendMessageJSON(String message) {
         String json = null;
         try {
